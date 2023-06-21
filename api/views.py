@@ -16,14 +16,14 @@ def profile(request):
         profile = Profile.objects.all()
         serializer= ProfileSerializer(profile, many=True)
 
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
     if request.method == "POST":
         serializer = ProfileSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
-            
+
 @api_view(['GET','PUT','DELETE'])
 def profile_detail(request, id):
     try:
